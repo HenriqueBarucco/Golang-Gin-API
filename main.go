@@ -1,19 +1,17 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/henriquebarucco/Golang-Gin-API/database"
+	"github.com/henriquebarucco/Golang-Gin-API/models"
+	"github.com/henriquebarucco/Golang-Gin-API/routes"
 )
 
-func ExibeTodosAlunos(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"id":   "1",
-		"nome": "Henrique Barucco",
-	})
-}
-
 func main() {
-	r := gin.Default()
-	r.GET("/alunos", ExibeTodosAlunos)
-
-	r.Run()
+	database.ConectaComBancoDeDados()
+	models.Alunos = []models.Aluno{
+		{Nome: "Henrique", CPF: "00000000001", RG: "1000000000"},
+		{Nome: "Teste", CPF: "00000000002", RG: "2000000000"},
+		{Nome: "Barucco", CPF: "00000000003", RG: "3000000000"},
+	}
+	routes.HandlerRequests()
 }
